@@ -14,6 +14,7 @@
 		DBB200C121B4817B00849012 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBB200BF21B4817B00849012 /* LaunchScreen.storyboard */; };
 		DBB200CC21B4817C00849012 /* AnimalPeekABooTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB200CB21B4817C00849012 /* AnimalPeekABooTests.swift */; };
 		DBB200D721B4817C00849012 /* AnimalPeekABooUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB200D621B4817C00849012 /* AnimalPeekABooUITests.swift */; };
+		DBB200E521B484E600849012 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB200E421B484E600849012 /* ImageFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		DBB200D221B4817C00849012 /* AnimalPeekABooUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnimalPeekABooUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB200D621B4817C00849012 /* AnimalPeekABooUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalPeekABooUITests.swift; sourceTree = "<group>"; };
 		DBB200D821B4817C00849012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBB200E421B484E600849012 /* ImageFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				DBB200BD21B4817B00849012 /* Assets.xcassets */,
 				DBB200BF21B4817B00849012 /* LaunchScreen.storyboard */,
 				DBB200C221B4817B00849012 /* Info.plist */,
+				DBB200E421B484E600849012 /* ImageFetcher.swift */,
 			);
 			path = AnimalPeekABoo;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBB200E521B484E600849012 /* ImageFetcher.swift in Sources */,
 				DBB200B921B4817900849012 /* ViewController.swift in Sources */,
 				DBB200B721B4817900849012 /* AppDelegate.swift in Sources */,
 			);
