@@ -30,7 +30,17 @@ class ImageFetcher {
         CGRect(x: 1392, y: 1389, width: 464, height: 463),
     ]
     
-    func fetchImageAt(index: Int) -> UIImage? {
+    func fetchRandomImage(exclude excludeIndexes: [Int]?) -> (Int, UIImage)? {
+        // ToDo: Replace with Int.random
+        let randomIndex = Int(arc4random_uniform(16))
+        if let excludeIndexes = excludeIndexes, excludeIndexes.contains(randomIndex) {
+            return fetchRandomImage(exclude:excludeIndexes)
+        }
+        
+        return fetchImageAt(index: randomIndex)
+    }
+    
+    private func fetchImageAt(index: Int) -> (Int, UIImage)? {
         let image = #imageLiteral(resourceName: "animals")
         let cgImage = image.cgImage
         let partCgImage = cgImage?.cropping(to: type(of:self).imageRects[index])
@@ -39,6 +49,6 @@ class ImageFetcher {
             return nil
         }
         
-        return UIImage(cgImage: finalCgImage)
+        return (index, UIImage(cgImage: finalCgImage))
     }
 }
