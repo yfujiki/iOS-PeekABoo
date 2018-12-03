@@ -196,13 +196,16 @@
 				TargetAttributes = {
 					DBB200B221B4817900849012 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 					};
 					DBB200C621B4817C00849012 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = DBB200B221B4817900849012;
 					};
 					DBB200D121B4817C00849012 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1010;
 						TestTargetID = DBB200B221B4817900849012;
 					};
 				};
@@ -443,7 +446,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -461,7 +464,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -481,7 +484,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimalPeekABoo.app/AnimalPeekABoo";
 			};
@@ -502,7 +505,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AnimalPeekABoo.app/AnimalPeekABoo";
 			};
@@ -522,7 +525,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABooUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = AnimalPeekABoo;
 			};
@@ -542,7 +545,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yfujiki.AnimalPeekABooUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = AnimalPeekABoo;
 			};
