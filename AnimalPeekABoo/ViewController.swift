@@ -16,14 +16,18 @@ class ViewController: UIViewController {
 
     private var images = [UIImage]()
     
-    lazy private var imageViews = {
-        [
+    lazy private var imageViews: [UIImageView] = {
+        let imageViews = [
             UIImageView(frame: .zero),
             UIImageView(frame: .zero),
             UIImageView(frame: .zero)
         ]
+        imageViews.forEach({ imageView in
+            imageView.contentMode = .scaleAspectFit
+        })
+        return imageViews
     }()
-    
+
     lazy private var fetcher: ImageFetcher = {
         return ImageFetcher()
     }()
