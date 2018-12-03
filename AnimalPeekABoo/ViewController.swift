@@ -32,27 +32,22 @@ class ViewController: UIViewController {
         return ImageFetcher()
     }()
     
-    private var firstLoad = true
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         prepareImagesAndViews()
     }
 
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
 
         // This is the first point you know for sure that scroll view size is correctly figured out,
         // because all of the constraints and layouts are already calculated.
         // Refer https://qiita.com/shtnkgm/items/f133f73baaa71172efb2 (Sorry, Japanese reference)
-        if (firstLoad) {
-            scrollViewSize = scrollView.frame.size
-            scrollView.contentSize = CGSize(width: scrollViewSize.width * 3, height: scrollViewSize.height)
-            scrollView.contentOffset = CGPoint(x: scrollViewSize.width, y: 0)
-            layoutImages()
-            firstLoad = false
-        }
+        scrollViewSize = scrollView.frame.size
+        scrollView.contentSize = CGSize(width: scrollViewSize.width * 3, height: scrollViewSize.height)
+        scrollView.contentOffset = CGPoint(x: scrollViewSize.width, y: 0)
+        layoutImages()
     }
     
     private func prepareImagesAndViews() {
