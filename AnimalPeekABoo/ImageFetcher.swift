@@ -30,20 +30,16 @@ class ImageFetcher {
         CGRect(x: 1392 * UIScreen.main.scale, y: 1389 * UIScreen.main.scale, width: 464 * UIScreen.main.scale, height: 463 * UIScreen.main.scale),
     ]
     
-    func fetchRandomImage() -> UIImage? {
+    func fetchRandomImage() -> UIImage {
         let randomIndex = Int.random(in: 0..<16)
         return fetchImageAt(index: randomIndex)
     }
     
-    private func fetchImageAt(index: Int) -> UIImage? {
+    private func fetchImageAt(index: Int) -> UIImage {
         let image = #imageLiteral(resourceName: "animals")
         let cgImage = image.cgImage
-        let partCgImage = cgImage?.cropping(to: type(of:self).imageRects[index])
+        let partCgImage = cgImage!.cropping(to: type(of:self).imageRects[index])!
         
-        guard let finalCgImage = partCgImage else {
-            return nil
-        }
-        
-        return UIImage(cgImage: finalCgImage)
+        return UIImage(cgImage: partCgImage)
     }
 }

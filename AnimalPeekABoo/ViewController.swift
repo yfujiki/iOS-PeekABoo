@@ -11,68 +11,84 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
+
+    private var scrollViewSize: CGSize = .zero
+
+    private var images = [UIImage]()
     
-    private var imageViews = [UIImageView]()
+    lazy private var imageViews = {
+        [
+            UIImageView(frame: .zero),
+            UIImageView(frame: .zero),
+            UIImageView(frame: .zero)
+        ]
+    }()
     
     lazy private var fetcher: ImageFetcher = {
         return ImageFetcher()
     }()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        configureScrollView()
-        prepareInitialImageViews()
+    private var firstLoad = true
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        prepareImagesAndViews()
     }
 
-    private func configureScrollView() {
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 5, height: scrollView.frame.size.height)
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
-    }
-    
-    private func prepareInitialImageViews() {
-        
-        (0..<5).forEach { (i) in
-            let imageView = newImageViewAt(i)
-            imageViews.append(imageView)
-            scrollView.addSubview(imageView)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        // This is the first point you know for sure that scroll view size is correctly figured out,
+        // because all of the constraints and layouts are already calculated.
+        // Refer https://qiita.com/shtnkgm/items/f133f73baaa71172efb2 (Sorry, Japanese reference)
+        if (firstLoad) {
+            scrollViewSize = scrollView.frame.size
+            scrollView.contentSize = CGSize(width: scrollViewSize.width * 3, height: scrollViewSize.height)
+            scrollView.contentOffset = CGPoint(x: scrollViewSize.width, y: 0)
+            layoutImages()
+            firstLoad = false
         }
     }
     
-    private func newImageViewAt(_ index: Int) -> UIImageView {
-        let image = fetcher.fetchRandomImage()
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index),
-                                 y: 0,
-                                 width: scrollView.frame.size.width,
-                                 height: scrollView.frame.size.height)
-        return imageView
+    private func prepareImagesAndViews() {
+        (0..<3).forEach { i in
+            let image = fetcher.fetchRandomImage()
+            images.append(image)
+            imageViews[i].image = image
+            scrollView.addSubview(imageViews[i])
+        }
+    }
+    
+    private func layoutImages() {
+        imageViews.enumerated().forEach { (index: Int, imageView: UIImageView) in
+            imageView.image = images[index]
+            imageView.frame = CGRect(x: scrollViewSize.width * CGFloat(index),
+                                     y: 0,
+                                     width: scrollViewSize.width,
+                                     height: scrollViewSize.height)
+        }
     }
 }
 
 extension ViewController: UIScrollViewDelegate {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let originalContentOffset = scrollView.contentOffset
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
         
-        for var imageView in imageViews {
-            var frame = imageView.frame
-            frame.origin.x += scrollView.contentOffset.x - originalContentOffset.x
-            imageView.frame = frame
-        }
-        
-        if (imageViews[0].frame.origin.x < 0) {
-            imageViews.remove(at: 0)
-            let imageView = newImageViewAt(4)
-            imageViews.append(imageView)
-            scrollView.addSubview(imageView)
+        if (offsetX > scrollView.frame.size.width * 1.5) {
+            let newImage = fetcher.fetchRandomImage()
+            images.remove(at: 0)
+            images.append(newImage)
+            layoutImages()
+            scrollView.contentOffset.x -= scrollViewSize.width
         }
 
-        if (imageViews[4].frame.origin.x > scrollView.frame.size.width * CGFloat(4)) {
-            imageViews.remove(at: 4)
-            let imageView = newImageViewAt(0)
-            imageViews.insert(imageView, at: 0)
-            scrollView.addSubview(imageView)
+        if (offsetX < scrollView.frame.size.width * 0.5) {
+            let newImage = fetcher.fetchRandomImage()
+            images.removeLast()
+            images.insert(newImage, at: 0)
+            layoutImages()
+            scrollView.contentOffset.x += scrollViewSize.width
         }
     }
 }
