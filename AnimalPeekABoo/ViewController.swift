@@ -9,20 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    struct Image {
-        let indexInSprite: Int
-        let image: UIImage
-    }
-    
-    struct ImageView {
-        let indexInSprite: Int
-        let imageView: UIImageView
-    }
     
     @IBOutlet weak var scrollView: UIScrollView!
     
-    private var imageViews = [ImageView]()
+    private var imageViews = [UIImageView]()
     
     lazy private var fetcher: ImageFetcher = {
         return ImageFetcher()
@@ -39,33 +29,24 @@ class ViewController: UIViewController {
         scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
     }
     
-    private func excludeIndexes() -> [Int] {
-        return imageViews.map { (imageView) -> Int in
-            imageView.indexInSprite
-        }
-    }
-    
     private func prepareInitialImageViews() {
         
         (0..<5).forEach { (i) in
             let imageView = newImageViewAt(i)
-            imageViews.append(ImageView(indexInSprite: imageView.indexInSprite, imageView: imageView.imageView))
-        }
-        
-        for var imageView in imageViews {
-            scrollView.addSubview(imageView.imageView)
+            imageViews.append(imageView)
+            scrollView.addSubview(imageView)
         }
     }
     
-    private func newImageViewAt(_ index: Int) -> ImageView {
-        let image = fetcher.fetchRandomImage(exclude: excludeIndexes())
-        let imageView = UIImageView(image: image!.1)
+    private func newImageViewAt(_ index: Int) -> UIImageView {
+        let image = fetcher.fetchRandomImage()
+        let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index),
                                  y: 0,
                                  width: scrollView.frame.size.width,
                                  height: scrollView.frame.size.height)
-        return ImageView(indexInSprite: image!.0, imageView: imageView)
+        return imageView
     }
 }
 
@@ -75,23 +56,23 @@ extension ViewController: UIScrollViewDelegate {
         scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
         
         for var imageView in imageViews {
-            var frame = imageView.imageView.frame
+            var frame = imageView.frame
             frame.origin.x += scrollView.contentOffset.x - originalContentOffset.x
-            imageView.imageView.frame = frame
+            imageView.frame = frame
         }
         
-        if (imageViews[0].imageView.frame.origin.x < 0) {
+        if (imageViews[0].frame.origin.x < 0) {
             imageViews.remove(at: 0)
             let imageView = newImageViewAt(4)
             imageViews.append(imageView)
-            scrollView.addSubview(imageView.imageView)
+            scrollView.addSubview(imageView)
         }
 
-        if (imageViews[4].imageView.frame.origin.x > scrollView.frame.size.width * CGFloat(4)) {
+        if (imageViews[4].frame.origin.x > scrollView.frame.size.width * CGFloat(4)) {
             imageViews.remove(at: 4)
             let imageView = newImageViewAt(0)
             imageViews.insert(imageView, at: 0)
-            scrollView.addSubview(imageView.imageView)
+            scrollView.addSubview(imageView)
         }
     }
 }
