@@ -10,76 +10,88 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    enum ImageViewPosition {
-        case left
-        case center
-        case right
+    struct Image {
+        let indexInSprite: Int
+        let image: UIImage
+    }
+    
+    struct ImageView {
+        let indexInSprite: Int
+        let imageView: UIImageView
     }
     
     @IBOutlet weak var scrollView: UIScrollView!
     
-    private var leftImage: (Int, UIImage)?
-    private var centerImage: (Int, UIImage)?
-    private var rightImage: (Int, UIImage)?
+    private var imageViews = [ImageView]()
     
     lazy private var fetcher: ImageFetcher = {
         return ImageFetcher()
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         configureScrollView()
-        prepareImages()
+        prepareInitialImageViews()
     }
 
     private func configureScrollView() {
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.frame.size.height)
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width, y: 0)
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 5, height: scrollView.frame.size.height)
+        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
     }
     
-    private func prepareImages() {
-        if centerImage == nil {
-            centerImage = fetcher.fetchRandomImage(exclude: nil)
+    private func excludeIndexes() -> [Int] {
+        return imageViews.map { (imageView) -> Int in
+            imageView.indexInSprite
+        }
+    }
+    
+    private func prepareInitialImageViews() {
+        
+        (0..<5).forEach { (i) in
+            let imageView = newImageViewAt(i)
+            imageViews.append(ImageView(indexInSprite: imageView.indexInSprite, imageView: imageView.imageView))
         }
         
-        leftImage = fetcher.fetchRandomImage(exclude: [centerImage!.0])
-        rightImage = fetcher.fetchRandomImage(exclude: [centerImage!.0, leftImage!.0])
-        
-        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width, y: 0)
-        scrollView.addSubview(imageViewForImage(leftImage!.1, position: .left))
-        scrollView.addSubview(imageViewForImage(centerImage!.1, position: .center))
-        scrollView.addSubview(imageViewForImage(rightImage!.1, position: .right))
+        for var imageView in imageViews {
+            scrollView.addSubview(imageView.imageView)
+        }
     }
     
-    private func imageViewForImage(_ image: UIImage, position: ImageViewPosition) -> UIImageView {
-        let imageView = UIImageView(image: image)
+    private func newImageViewAt(_ index: Int) -> ImageView {
+        let image = fetcher.fetchRandomImage(exclude: excludeIndexes())
+        let imageView = UIImageView(image: image!.1)
         imageView.contentMode = .scaleAspectFit
-        
-        switch position {
-        case .left:
-            imageView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        case .center:
-            imageView.frame = CGRect(x: scrollView.frame.size.width, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        case .right:
-            imageView.frame = CGRect(x: scrollView.frame.size.width * 2, y: 0, width: scrollView.frame.size.width, height: scrollView.frame.size.height)
-        }
-        
-        return imageView
+        imageView.frame = CGRect(x: scrollView.frame.size.width * CGFloat(index),
+                                 y: 0,
+                                 width: scrollView.frame.size.width,
+                                 height: scrollView.frame.size.height)
+        return ImageView(indexInSprite: image!.0, imageView: imageView)
     }
 }
 
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.x == scrollView.contentSize.width * 2 {
-            // Scrolled to right
-            centerImage = rightImage
-            prepareImages()
-        } else if scrollView.contentOffset.x == 0 {
-            // Scrolled to left
-            centerImage = leftImage
-            prepareImages()
-        } else {
-            // Didn't move
+        let originalContentOffset = scrollView.contentOffset
+        scrollView.contentOffset = CGPoint(x: scrollView.frame.size.width * 2, y: 0)
+        
+        for var imageView in imageViews {
+            var frame = imageView.imageView.frame
+            frame.origin.x += scrollView.contentOffset.x - originalContentOffset.x
+            imageView.imageView.frame = frame
+        }
+        
+        if (imageViews[0].imageView.frame.origin.x < 0) {
+            imageViews.remove(at: 0)
+            let imageView = newImageViewAt(4)
+            imageViews.append(imageView)
+            scrollView.addSubview(imageView.imageView)
+        }
+
+        if (imageViews[4].imageView.frame.origin.x > scrollView.frame.size.width * CGFloat(4)) {
+            imageViews.remove(at: 4)
+            let imageView = newImageViewAt(0)
+            imageViews.insert(imageView, at: 0)
+            scrollView.addSubview(imageView.imageView)
         }
     }
 }

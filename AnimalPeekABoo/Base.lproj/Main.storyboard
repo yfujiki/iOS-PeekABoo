@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-GG-TCB">
-                                <rect key="frame" x="60" y="80" width="255" height="527"/>
+                                <rect key="frame" x="60" y="180" width="255" height="327"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GaC-6i-gy3"/>
                                 </connections>
@@ -27,11 +27,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zJU-GG-TCB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="1aX-Xm-vvp"/>
+                            <constraint firstItem="zJU-GG-TCB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="1aX-Xm-vvp"/>
                             <constraint firstItem="zJU-GG-TCB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SPY-dh-lQ0"/>
                             <constraint firstItem="zJU-GG-TCB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="XgR-Uo-Vqt"/>
                             <constraint firstItem="zJU-GG-TCB" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="pvG-Nb-FU9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zJU-GG-TCB" secondAttribute="bottom" constant="60" id="r4x-lN-Rv2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zJU-GG-TCB" secondAttribute="bottom" constant="160" id="r4x-lN-Rv2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zJU-GG-TCB" secondAttribute="trailing" constant="60" id="wGW-1Y-rEf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
