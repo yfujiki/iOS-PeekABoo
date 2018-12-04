@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 class ViewController: UIViewController {
     
@@ -15,7 +16,9 @@ class ViewController: UIViewController {
     private var scrollViewSize: CGSize = .zero
 
     private var images = [UIImage]()
-    
+
+    private var dragging = false
+
     lazy private var imageViews: [UIImageView] = {
         let imageViews = [
             UIImageView(frame: .zero),
@@ -71,7 +74,19 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        dragging = true
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        dragging = false
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if !dragging {
+            return
+        }
+
         let offsetX = scrollView.contentOffset.x
         
         if (offsetX > scrollView.frame.size.width * 1.5) {
