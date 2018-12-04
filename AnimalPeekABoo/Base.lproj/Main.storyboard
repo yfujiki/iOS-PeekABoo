@@ -18,25 +18,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-GG-TCB">
-                                <rect key="frame" x="60" y="180" width="255" height="327"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="255" id="QHC-9y-kT6"/>
-                                    <constraint firstAttribute="height" constant="327" id="gfY-cW-rox"/>
-                                </constraints>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-GG-TCB">
+                                <rect key="frame" x="76" y="203.5" width="223" height="280"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GaC-6i-gy3"/>
                                 </connections>
                             </scrollView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" image="green-frame-portrait" translatesAutoresizingMaskIntoConstraints="NO" id="aE0-Dd-Zn0">
+                                <rect key="frame" x="32" y="159.5" width="311" height="368"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="aE0-Dd-Zn0" secondAttribute="height" multiplier="385:456" id="zBO-5E-5EY"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zJU-GG-TCB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SPY-dh-lQ0"/>
-                            <constraint firstItem="zJU-GG-TCB" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="pvG-Nb-FU9"/>
+                            <constraint firstItem="zJU-GG-TCB" firstAttribute="centerY" secondItem="aE0-Dd-Zn0" secondAttribute="centerY" id="DEP-mu-WkW"/>
+                            <constraint firstItem="zJU-GG-TCB" firstAttribute="leading" secondItem="aE0-Dd-Zn0" secondAttribute="leading" constant="44" id="JzS-C5-Yix"/>
+                            <constraint firstItem="zJU-GG-TCB" firstAttribute="centerX" secondItem="aE0-Dd-Zn0" secondAttribute="centerX" id="NpS-m2-35F"/>
+                            <constraint firstItem="zJU-GG-TCB" firstAttribute="top" secondItem="aE0-Dd-Zn0" secondAttribute="top" constant="44" id="UOE-yN-Mpo"/>
+                            <constraint firstItem="aE0-Dd-Zn0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="VYj-Vo-5uj"/>
+                            <constraint firstItem="aE0-Dd-Zn0" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Zwx-Wj-HuW"/>
+                            <constraint firstItem="aE0-Dd-Zn0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="l2R-w8-Cqs"/>
+                            <constraint firstItem="aE0-Dd-Zn0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="mBU-7p-hti"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="VYj-Vo-5uj"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="frameImageView" destination="aE0-Dd-Zn0" id="cG7-aX-0os"/>
+                        <outlet property="frameImageViewAspectRatioConstraint" destination="zBO-5E-5EY" id="ewc-DW-EZw"/>
+                        <outlet property="frameImageViewLeftConstraint" destination="mBU-7p-hti" id="guQ-VL-ZJX"/>
+                        <outlet property="frameImageViewTopConstraint" destination="VYj-Vo-5uj" id="3Ov-j4-4RO"/>
                         <outlet property="scrollView" destination="zJU-GG-TCB" id="N77-U8-t3z"/>
                     </connections>
                 </viewController>
@@ -45,4 +62,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="green-frame-portrait" width="384.5" height="456"/>
+    </resources>
 </document>

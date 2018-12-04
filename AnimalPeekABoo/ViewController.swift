@@ -13,6 +13,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
 
+    @IBOutlet weak var frameImageView: UIImageView!
+
+    @IBOutlet weak var frameImageViewAspectRatioConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var frameImageViewLeftConstraint: NSLayoutConstraint!
+
+    @IBOutlet weak var frameImageViewTopConstraint: NSLayoutConstraint!
+
     private var scrollViewSize: CGSize = .zero
 
     private var images = [UIImage]()
@@ -39,6 +47,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         prepareImagesAndViews()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        if (size.width > size.height) {
+            // landscape
+            frameImageView.image = UIImage(named: "green-frame-landscape")
+            frameImageViewAspectRatioConstraint.constant = 385.0/456.0;
+            frameImageViewLeftConstraint.constant = 120
+        } else {
+            // portrait
+            frameImageView.image = UIImage(named: "green-frame-portrait")
+            frameImageViewAspectRatioConstraint.constant = 456.0/385.0
+            frameImageViewLeftConstraint.constant = 32
+        }
     }
 
     override func viewDidLayoutSubviews() {
