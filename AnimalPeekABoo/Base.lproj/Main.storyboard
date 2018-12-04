@@ -18,8 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-GG-TCB">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJU-GG-TCB">
                                 <rect key="frame" x="60" y="180" width="255" height="327"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="255" id="QHC-9y-kT6"/>
+                                    <constraint firstAttribute="height" constant="327" id="gfY-cW-rox"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="GaC-6i-gy3"/>
                                 </connections>
@@ -27,12 +31,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="zJU-GG-TCB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="1aX-Xm-vvp"/>
                             <constraint firstItem="zJU-GG-TCB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SPY-dh-lQ0"/>
-                            <constraint firstItem="zJU-GG-TCB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="XgR-Uo-Vqt"/>
                             <constraint firstItem="zJU-GG-TCB" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="pvG-Nb-FU9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zJU-GG-TCB" secondAttribute="bottom" constant="160" id="r4x-lN-Rv2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zJU-GG-TCB" secondAttribute="trailing" constant="60" id="wGW-1Y-rEf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
