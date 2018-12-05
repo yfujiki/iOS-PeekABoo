@@ -52,16 +52,32 @@ class ViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
+        var frameWidthRatio = CGFloat(1.0)
+        var frameHeightRatio = CGFloat(1.0)
         if (size.width > size.height) {
             // landscape
             frameImageView.image = UIImage(named: "green-frame-landscape")
-            frameImageViewAspectRatioConstraint.constant = 385.0/456.0;
-            frameImageViewLeftConstraint.constant = 120
+            frameWidthRatio = 456.0
+            frameHeightRatio = 385.0
         } else {
             // portrait
             frameImageView.image = UIImage(named: "green-frame-portrait")
-            frameImageViewAspectRatioConstraint.constant = 456.0/385.0
+            frameWidthRatio = 385.0
+            frameHeightRatio = 456.0
+        }
+
+        let frameAspectRatio = frameHeightRatio / frameWidthRatio
+        frameImageViewAspectRatioConstraint.constant = frameAspectRatio
+        frameImageViewLeftConstraint.constant = 32
+
+        let viewAspectRatio = size.height / size.width
+
+        if (viewAspectRatio > frameAspectRatio) {
             frameImageViewLeftConstraint.constant = 32
+        } else {
+            let r = (size.height - 2 * 32) / frameHeightRatio
+            let x = (size.width - r * frameWidthRatio) / 2
+            frameImageViewLeftConstraint.constant = x
         }
     }
 
