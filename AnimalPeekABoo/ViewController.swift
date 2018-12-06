@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareImagesAndViews()
+        configureGesture()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -55,6 +56,34 @@ class ViewController: UIViewController {
         updateViewConstraints(to: view.frame.size)
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.updateViewConstraints(to: size)
+        })
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        // This is the first point you know for sure that scroll view size is correctly figured out,
+        // because all of the constraints and layouts are already calculated.
+        // Refer https://qiita.com/shtnkgm/items/f133f73baaa71172efb2 (Sorry, Japanese reference)
+        scrollViewSize = scrollView.frame.size
+        scrollView.contentSize = CGSize(width: scrollViewSize.width * 3, height: scrollViewSize.height)
+        scrollView.contentOffset = CGPoint(x: scrollViewSize.width, y: 0)
+        layoutImages()
+    }
+
+    private func configureGesture() {
+        scrollView.gestureRecognizers?.forEach({ recognizer in
+            if recognizer is UISwipeGestureRecognizer
+                || recognizer is UIPanGestureRecognizer {
+                view.addGestureRecognizer(recognizer)
+            }
+        })
+    }
     private func updateViewConstraints(to size: CGSize) {
         var frameWidthRatio = CGFloat(1.0)
         var frameHeightRatio = CGFloat(1.0)
@@ -88,26 +117,7 @@ class ViewController: UIViewController {
         }
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
 
-        coordinator.animate(alongsideTransition: { [weak self] _ in
-            self?.updateViewConstraints(to: size)
-        })
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        // This is the first point you know for sure that scroll view size is correctly figured out,
-        // because all of the constraints and layouts are already calculated.
-        // Refer https://qiita.com/shtnkgm/items/f133f73baaa71172efb2 (Sorry, Japanese reference)
-        scrollViewSize = scrollView.frame.size
-        scrollView.contentSize = CGSize(width: scrollViewSize.width * 3, height: scrollViewSize.height)
-        scrollView.contentOffset = CGPoint(x: scrollViewSize.width, y: 0)
-        layoutImages()
-    }
-    
     private func prepareImagesAndViews() {
         (0..<3).forEach { i in
             let image = fetcher.fetchRandomImage()
