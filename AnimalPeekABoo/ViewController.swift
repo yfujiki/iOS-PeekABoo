@@ -15,7 +15,9 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var frameImageView: UIImageView!
 
-    @IBOutlet weak var frameImageViewAspectRatioConstraint: NSLayoutConstraint!
+    @IBOutlet weak var frameImageViewAspectRatioConstraintLandscape: NSLayoutConstraint!
+
+    @IBOutlet weak var frameImageViewAspectRatioConstraintPortrait: NSLayoutConstraint!
 
     @IBOutlet weak var frameImageViewLeftConstraint: NSLayoutConstraint!
 
@@ -45,13 +47,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         prepareImagesAndViews()
     }
 
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateViewConstraints(to: view.frame.size)
+    }
 
+    private func updateViewConstraints(to size: CGSize) {
         var frameWidthRatio = CGFloat(1.0)
         var frameHeightRatio = CGFloat(1.0)
         if (size.width > size.height) {
@@ -59,16 +63,19 @@ class ViewController: UIViewController {
             frameImageView.image = UIImage(named: "green-frame-landscape")
             frameWidthRatio = 456.0
             frameHeightRatio = 385.0
+
+            frameImageViewAspectRatioConstraintPortrait.isActive = false
+            frameImageViewAspectRatioConstraintLandscape.isActive = true
         } else {
             // portrait
             frameImageView.image = UIImage(named: "green-frame-portrait")
             frameWidthRatio = 385.0
             frameHeightRatio = 456.0
+            frameImageViewAspectRatioConstraintPortrait.isActive = true
+            frameImageViewAspectRatioConstraintLandscape.isActive = false
         }
 
         let frameAspectRatio = frameHeightRatio / frameWidthRatio
-        frameImageViewAspectRatioConstraint.constant = frameAspectRatio
-        frameImageViewLeftConstraint.constant = 32
 
         let viewAspectRatio = size.height / size.width
 
@@ -79,6 +86,14 @@ class ViewController: UIViewController {
             let x = (size.width - r * frameWidthRatio) / 2
             frameImageViewLeftConstraint.constant = x
         }
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate(alongsideTransition: { [weak self] _ in
+            self?.updateViewConstraints(to: size)
+        })
     }
 
     override func viewDidLayoutSubviews() {
