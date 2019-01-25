@@ -6,5 +6,5 @@
 
 Sample app to demonstrate infinite scrolling using `UIScrollView`.
 
-- [英語|English](https://medium.com/@yfujiki/infinite-uiscrollview-with-paging-46c07e44a106
+- [英語|English](https://medium.com/@yfujiki/infinite-uiscrollview-with-paging-46c07e44a106)
 - [日本語|Japanese](https://qiita.com/yfujiki/items/d974b69b35779897d249)
